@@ -1,22 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Image Enhancer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f7f7f7;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 30px;
+        }
+        img {
+            max-width: 500px;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        .btn {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
+
     <h2>Upload an Image to Enhance</h2>
-    <form action="/enhance" method="post" enctype="multipart/form-data">
+
+    <form action="{{ url_for('imgUpscaler_bp.enhance') }}" method="post" enctype="multipart/form-data">
         <input type="file" name="image" required>
-        <button type="submit">Enhance</button>
+        <button class="btn" type="submit">Enhance</button>
     </form>
 
-    {% if output_img %}
+    {% if show_image %}
         <hr>
         <h2>Enhanced Image Preview:</h2>
         <img src="{{ output_img }}" alt="Enhanced Image"><br><br>
-        <a href="{{ download_url }}" download="">
-            <button>Download Enhanced Image</button>
+
+        <a href="{{ download_url }}" download>
+            <button class="btn">Download Enhanced Image</button>
         </a>
     {% endif %}
+
 </body>
 </html>

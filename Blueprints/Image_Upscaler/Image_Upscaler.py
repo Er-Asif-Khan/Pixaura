@@ -4,14 +4,14 @@ import numpy as np
 from PIL import Image
 from basicsr.archs.rrdbnet_arch import RRDBNet
 from realesrgan import RealESRGANer
-from flask import Flask, render_template, url_for, jsonify, redirect, request, send_from_directory, Blueprint
+from flask import render_template, url_for, jsonify, redirect, request, send_from_directory, Blueprint
 from werkzeug.utils import secure_filename
 
 
 imgUpscaler_bp = Blueprint('imgUpscaler_bp', __name__, template_folder= "templates")
 
-UPLOAD_FOLDER = 'static/uploads'
-OUTPUT_FOLDER = 'static/outputs'
+UPLOAD_FOLDER = 'Blueprints/Image_Upscaler/static/uploads'
+OUTPUT_FOLDER = 'Blueprints/Image_Upscaler/static/outputs'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
@@ -71,10 +71,7 @@ def enhance():
 
         return render_template('index.html', show_image = True, output_img = output_img, download_url = download_url)
     
-    elif file and not(allowed_file):
-        return jsonify({'error': 'Invalid file type'}), 400
-    
-    return redirect('/')
+    return jsonify({'error': 'Invalid file type'}), 400
 
 
 @imgUpscaler_bp.route('/download/<filename>')
