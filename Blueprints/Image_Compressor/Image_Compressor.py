@@ -25,7 +25,7 @@ def compress():
         return jsonify({'error': 'Missing Image or Quality value'}), 400
     
     file = request.files['image']
-    quality = int(request.form['quality'])
+    quality = 100 - int(request.form['quality'])
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
