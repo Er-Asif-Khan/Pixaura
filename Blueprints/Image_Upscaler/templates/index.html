@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Enhancer</title>
+</head>
+<body>
+    <h2>Upload an Image to Enhance</h2>
+    <form action="/enhance" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <button type="submit">Enhance</button>
+    </form>
+
+    {% if output_img %}
+        <hr>
+        <h2>Enhanced Image Preview:</h2>
+        <img src="{{ output_img }}" alt="Enhanced Image"><br><br>
+        <a href="{{ download_url }}" download="">
+            <button>Download Enhanced Image</button>
+        </a>
+    {% endif %}
+</body>
+</html>
