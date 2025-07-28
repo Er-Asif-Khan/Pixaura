@@ -1,3 +1,3 @@
-# SmartVision Hub is an internship Project 
+# SmartVision Hub 
 <br>
-made by ASIF KHAN
+An Internship Project made by ASIF KHAN
