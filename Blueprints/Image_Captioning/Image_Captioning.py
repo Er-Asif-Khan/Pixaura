@@ -22,7 +22,7 @@ model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-capt
 
 @imgCaptioning_bp.route('/')
 def index():
-    return render_template('index.html', show_image = False)
+    return render_template('index1.html', show_image = False)
 
 @imgCaptioning_bp.route('/captionize', methods = ['POST'])
 def captionize():
@@ -48,8 +48,8 @@ def captionize():
         with open(output_path, 'w') as f:
             f.write(caption)
 
-        return render_template("index.html", show_image = True, image = filename, caption = caption)
+        return render_template('index1.html', show_image = True, image = filename, caption = caption)
     
-    return redirect(url_for('imgCaptioning_bp.index'))
+    return jsonify({'error': 'Invalid file type'}), 400
 
 
