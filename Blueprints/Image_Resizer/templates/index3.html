@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Resizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+        }
+        img {
+            max-width: 500px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            const width = document.forms["resizeForm"]["width"].value;
+            const height = document.forms["resizeForm"]["height"].value;
+
+            if (width && height) {
+                return confirm("⚠️ Warning: Providing both width and height may distort the image. Continue?");
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+<h2>📏 Resize Your Image</h2>
+
+<form name="resizeForm" action="{{ url_for('imgResizer_bp.resize') }}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+    <div class="form-control">
+        <label>Select Image:</label>
+        <input type="file" name="image" required>
+    </div>
+
+    <div class="form-control">
+        <label>Width (optional):</label>
+        <input type="number" name="width" min="1">
+    </div>
+
+    <div class="form-control">
+        <label>Height (optional):</label>
+        <input type="number" name="height" min="1">
+    </div>
+
+    <button type="submit">📐 Resize</button>
+</form>
+
+{% if show_image %}
+    <hr>
+    <h3>🖼️ Resized Image Preview:</h3>
+    <img src="{{ output_img }}" alt="Resized Image"><br><br>
+
+    <a href="{{ download_url }}" download>
+        <button>⬇️ Download Resized Image</button>
+    </a>
+{% endif %}
+
+</body>
+</html>

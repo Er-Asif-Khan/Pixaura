@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 from basicsr.archs.rrdbnet_arch import RRDBNet
 from realesrgan import RealESRGANer
-from flask import render_template, url_for, jsonify, redirect, request, send_from_directory, Blueprint
+from flask import render_template, url_for, jsonify, request, send_from_directory, Blueprint
 from werkzeug.utils import secure_filename
 
 
