@@ -8,7 +8,7 @@ imgGenerator_bp = Blueprint('imgGenerator_bp', __name__, template_folder="templa
 UPLOAD_FOLDER = 'Blueprints/Image_Generator/static/outputs'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# API_TOKEN = "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"
+API_TOKEN = "my_token_which is pasted on clipboard and pinned"
 API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
 HEADERS = {"Authorization": f"Bearer {API_TOKEN}"}
 
