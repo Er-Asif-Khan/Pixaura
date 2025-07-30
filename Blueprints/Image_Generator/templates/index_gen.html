@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🎨 AI Image Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f4f4;
+            padding: 40px;
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #444;
+        }
+        form {
+            margin-bottom: 30px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .btn {
+            margin-top: 10px;
+            padding: 12px 25px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        img {
+            max-width: 100%;
+            margin-top: 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        .download-btn {
+            margin-top: 20px;
+            background-color: #28a745;
+        }
+        .download-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Prompt-to-Image Generator</h1>
+        <form action="{{ url_for('imgGenerator_bp.generate') }}" method="POST">
+            <input type="text" name="prompt" placeholder="Enter your creative prompt here..." required><br>
+            <button class="btn" type="submit">Generate Image</button>
+        </form>
+
+        {% if show_image %}
+            <hr>
+            <h3>🖼️ Generated Image:</h3>
+            <img src="{{ output_img }}" alt="Generated Image">
+            <br>
+            <a href="{{ download_url }}" download>
+                <button class="btn download-btn">⬇️ Download Image</button>
+            </a>
+        {% endif %}
+    </div>
+</body>
+</html>
