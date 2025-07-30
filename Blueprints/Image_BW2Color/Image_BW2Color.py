@@ -32,7 +32,7 @@ net.getLayer(conv8).blobs = [np.full([1, 313], 2.606, dtype="float32")]
 
 @imgBW2Color_bp.route('/')
 def index():
-    return render_template("index5.html", show_image=False)
+    return render_template("index3.html", show_image=False)
 
 @imgBW2Color_bp.route('/colorize', methods=['POST'])
 def colorize():
@@ -73,7 +73,7 @@ def colorize():
             img_url = url_for('imgBW2Color_bp.static', filename=f'outputs/{output_filename}')
             download_url = url_for('imgBW2Color_bp.download_file', filename=output_filename)
 
-            return render_template("index5.html", show_image=True, output_img=img_url, download_url=download_url)
+            return render_template("index3.html", show_image=True, output_img=img_url, download_url=download_url)
 
         except Exception as e:
             return jsonify({'error': str(e)}), 500

@@ -5,7 +5,7 @@ from PIL import Image
 from flask import redirect, render_template, request, url_for, jsonify, Blueprint
 from werkzeug.utils import secure_filename
 
-imgCaptioning_bp = Blueprint('imgCaptioning_bp', __name__, template_folder = 'templates')
+imgCaptioning_bp = Blueprint('imgCaptioning_bp', __name__, template_folder = 'templates', static_folder= 'static', static_url_path='Captionizer/static')
 
 UPLOAD_FOLDER = 'Blueprints/Image_Captioning/static/uploads'
 OUTPUT_FOLDER = 'Blueprints/Image_Captioning/static/outputs'
@@ -22,7 +22,7 @@ model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-capt
 
 @imgCaptioning_bp.route('/')
 def index():
-    return render_template('index1.html', show_image = False)
+    return render_template('index2.html', show_image = False)
 
 @imgCaptioning_bp.route('/captionize', methods = ['POST'])
 def captionize():
@@ -48,7 +48,9 @@ def captionize():
         with open(output_path, 'w') as f:
             f.write(caption)
 
-        return render_template('index1.html', show_image = True, image = filename, caption = caption)
+        img_url = url_for('imgCaptioning_bp.static', filename = f'uploads/{filename}')
+
+        return render_template('index2.html', show_image = True, image = img_url, caption = caption)
     
     return jsonify({'error': 'Invalid file type'}), 400
 

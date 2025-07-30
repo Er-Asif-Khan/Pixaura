@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🖤➜🎨 B/W to Colorizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background-color: #f3f6f9;
+            color: #333;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* Form Styles */
+        form {
+            background-color: white;
+            max-width: 500px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        input[type="file"] {
+            margin-top: 10px;
+            padding: 10px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #00a86b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #007f52;
+        }
+
+        /* Image Preview */
+        .image-output {
+            margin-top: 40px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ccc;
+        }
+
+        .download-btn {
+            margin-top: 20px;
+            background-color: #005eff;
+        }
+
+        .download-btn:hover {
+            background-color: #0041c4;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                padding: 20px;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .download-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎨 Black & White ➜ Colorizer</h1>
+    <p class="info">Upload a grayscale image to see it colorized using deep learning!</p>
+
+    <!-- Upload Form -->
+    <form action="{{ url_for('imgBW2Color_bp.colorize') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required><br>
+        <button type="submit">✨ Colorize</button>
+    </form>
+
+    {% if show_image %}
+    <!-- Output -->
+    <div class="image-output">
+        <h2>🌈 Colorized Output</h2>
+        <img src="{{ output_img }}" alt="Colorized Image"><br>
+
+        <a href="{{ download_url }}" download>
+            <button class="download-btn">⬇️ Download Colorized Image</button>
+        </a>
+    </div>
+    {% endif %}
+
+</body>
+</html>

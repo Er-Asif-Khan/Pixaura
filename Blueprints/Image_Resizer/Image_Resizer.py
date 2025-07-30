@@ -17,7 +17,7 @@ def allowed_file(filename):
 
 @imgResizer_bp.route('/')
 def index():
-    return render_template('index3.html', show_image = False)
+    return render_template('index6.html', show_image = False)
 
 @imgResizer_bp.route('/resize', methods = ['POST'])
 def resize():
@@ -66,7 +66,7 @@ def resize():
             img_url = url_for('imgResizer_bp.static', filename = f'outputs/{output_filename}')
             download_url = url_for('imgResizer_bp.download_file', filename = output_filename)
 
-            return render_template('index3.html', show_image = True, output_img = img_url, download_url = download_url)
+            return render_template('index6.html', show_image = True, output_img = img_url, download_url = download_url)
         
         except Exception as e:
             return jsonify({'error': str(e)}), 500

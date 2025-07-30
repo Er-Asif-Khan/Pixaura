@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>📏 Image Resizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f2f2f2;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 4px;
+            text-align: left;
+        }
+
+        input[type="file"],
+        input[type="number"] {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .result img {
+            max-width: 100%;
+            margin-top: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 6px rgba(0,0,0,0.1);
+        }
+
+        .download-btn {
+            margin-top: 15px;
+            background-color: #28a745;
+        }
+
+        .download-btn:hover {
+            background-color: #1e7e34;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+    <script>
+        function validateForm() {
+            const form = document.forms["resizeForm"];
+            const width = form["width"].value;
+            const height = form["height"].value;
+
+            if (width && height) {
+                return confirm("⚠️ Warning: Providing both width and height may distort the image. Continue?");
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h2>📏 Image Resizer</h2>
+
+        <form name="resizeForm" action="{{ url_for('imgResizer_bp.resize') }}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <div>
+                <label>Select Image:</label>
+                <input type="file" name="image" required>
+            </div>
+
+            <div>
+                <label>Width (optional):</label>
+                <input type="number" name="width" min="1">
+            </div>
+
+            <div>
+                <label>Height (optional):</label>
+                <input type="number" name="height" min="1">
+            </div>
+
+            <button type="submit">📐 Resize</button>
+        </form>
+
+        {% if show_image %}
+        <div class="result">
+            <h3>🖼️ Resized Image Preview:</h3>
+            <img src="{{ output_img }}" alt="Resized Image">
+            <a href="{{ download_url }}" download>
+                <button class="download-btn">⬇️ Download Resized Image</button>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

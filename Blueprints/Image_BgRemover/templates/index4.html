@@ -1,37 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Background Remover</title>
+    <meta charset="UTF-8">
+    <title>🧼 Background Remover</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 30px;
+        /* Reset and global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        img {
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            padding: 40px 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        form {
+            background-color: white;
+            padding: 30px;
             max-width: 500px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.05);
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #00a86b;
+            color: white;
+            font-size: 15px;
+            border: none;
+            border-radius: 6px;
             margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #007a50;
+        }
+
+        .result-container {
+            margin-top: 40px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
             border: 1px solid #ccc;
+        }
+
+        .download-btn {
+            background-color: #005eff;
+            margin-top: 20px;
+        }
+
+        .download-btn:hover {
+            background-color: #0040c1;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                padding: 20px;
+            }
+
+            button, .download-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
 
-<h2>🧼 Remove Image Background</h2>
-<form action="{{ url_for('imgBgRemover_bp.removebg') }}" method="post" enctype="multipart/form-data">
-    <label>Select Image:</label>
-    <input type="file" name="image" required><br><br>
-    <button type="submit">Remove Background</button>
-</form>
+    <h2>🧼 Background Remover</h2>
+    <p>Upload an image to remove its background using AI.</p>
 
-{% if show_image %}
-    <hr>
-    <h3>🖼️ Result:</h3>
-    <img src="{{ output_img }}" alt="No Background Image"><br><br>
+    <!-- Upload Form -->
+    <form action="{{ url_for('imgBgRemover_bp.removebg') }}" method="post" enctype="multipart/form-data">
+        <label>Select Image:</label>
+        <input type="file" name="image" accept="image/*" required><br>
+        <button type="submit">✨ Remove Background</button>
+    </form>
 
-    <a href="{{ download_url }}" download>
-        <button>⬇️ Download Image</button>
-    </a>
-{% endif %}
+    {% if show_image %}
+    <div class="result-container">
+        <h3>🎉 Background Removed</h3>
+        <img src="{{ output_img }}" alt="Background Removed Image"><br>
+
+        <a href="{{ download_url }}" download>
+            <button class="download-btn">⬇️ Download Result</button>
+        </a>
+    </div>
+    {% endif %}
 
 </body>
 </html>

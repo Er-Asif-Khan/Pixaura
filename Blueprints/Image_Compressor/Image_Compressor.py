@@ -17,7 +17,7 @@ def allowed_file(filename):
 
 @imgCompressor_bp.route('/')
 def index():
-    return render_template("index2.html", show_image = False)
+    return render_template("index5.html", show_image = False)
 
 @imgCompressor_bp.route('/compress', methods = ['POST'])
 def compress():
@@ -45,7 +45,7 @@ def compress():
             img_url = url_for('imgCompressor_bp.static', filename = f'outputs/{output_filename}')
             download_url = url_for('imgCompressor_bp.download_file', filename = output_filename)
 
-            return render_template("index2.html", show_image = True, output_img = img_url, file_size = compressed_size, download_url = download_url)
+            return render_template("index5.html", show_image = True, output_img = img_url, file_size = compressed_size, download_url = download_url)
         
         except Exception as e:
             return jsonify({'error': str(e)}), 500

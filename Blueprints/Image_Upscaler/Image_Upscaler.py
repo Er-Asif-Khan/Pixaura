@@ -8,7 +8,7 @@ from flask import render_template, url_for, jsonify, request, send_from_director
 from werkzeug.utils import secure_filename
 
 
-imgUpscaler_bp = Blueprint('imgUpscaler_bp', __name__, template_folder= "templates")
+imgUpscaler_bp = Blueprint('imgUpscaler_bp', __name__, template_folder= "templates", static_folder= 'static', static_url_path='/Upscaler/static')
 
 UPLOAD_FOLDER = 'Blueprints/Image_Upscaler/static/uploads'
 OUTPUT_FOLDER = 'Blueprints/Image_Upscaler/static/outputs'
@@ -41,7 +41,7 @@ upsampler = RealESRGANer(
 
 @imgUpscaler_bp.route('/')
 def index():
-    return render_template('index.html', show_image = False)
+    return render_template('index1.html', show_image = False)
 
 @imgUpscaler_bp.route('/enhance', methods = ['POST'])
 def enhance():
@@ -66,15 +66,15 @@ def enhance():
         output_path = os.path.join(OUTPUT_FOLDER, output_filename)
         Image.fromarray(output_np).save(output_path)
 
-        output_img = url_for('static', filename = f'outputs/{output_filename}')
-        download_url = url_for('static', filename = f'outputs/{output_filename}')
+        img_url = url_for('imgUpscaler_bp.static', filename = f'outputs/{output_filename}')
+        download_url = url_for('imgUpscaler_bp.download_file', filename = output_filename)
 
-        return render_template('index.html', show_image = True, output_img = output_img, download_url = download_url)
+        return render_template('index1.html', show_image = True, output_img = img_url, download_url = download_url)
     
     return jsonify({'error': 'Invalid file type'}), 400
 
 
 @imgUpscaler_bp.route('/download/<filename>')
 def download_file(filename):
-    return send_from_directory(os.path.join(OUTPUT_FOLDER, filename), as_attachment = True)
+    return send_from_directory(OUTPUT_FOLDER, filename, as_attachment = True)
 
