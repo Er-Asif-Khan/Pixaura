@@ -8,10 +8,17 @@ from flask import render_template, url_for, jsonify, request, send_from_director
 from werkzeug.utils import secure_filename
 
 
-imgUpscaler_bp = Blueprint('imgUpscaler_bp', __name__, template_folder= "templates")
+TEMPLATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'templates'))
 
-UPLOAD_FOLDER = 'static/Image_Upscaler/uploads'
-OUTPUT_FOLDER = 'static/Image_Upscaler/outputs'
+script_dir = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(script_dir, "..", "models", "RealESRGAN_x2plus.pth")
+model_path = os.path.normpath(model_path)
+
+
+imgUpscaler_bp = Blueprint('imgUpscaler_bp', __name__, template_folder= TEMPLATE_DIR)
+
+UPLOAD_FOLDER = os.path.join(script_dir, '..', 'static', 'Image_Upscaler', 'uploads')
+OUTPUT_FOLDER = os.path.join(script_dir, '..', 'static', 'Image_Upscaler', 'outputs')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
@@ -30,7 +37,7 @@ model = RRDBNet(
 
 upsampler = RealESRGANer(
     scale=2,
-    model_path='models/RealESRGAN_x2plus.pth',
+    model_path=model_path,
     model=model,
     tile=0,
     tile_pad=10,
@@ -66,7 +73,7 @@ def enhance():
         output_path = os.path.join(OUTPUT_FOLDER, output_filename)
         Image.fromarray(output_np).save(output_path)
 
-        img_url = url_for('static', filename=f'Image_Upscaler/outputs/{output_filename}')
+        img_url = f"http://localhost:5000/static/Image_Upscaler/outputs/{output_filename}"
         download_url = url_for('imgUpscaler_bp.download_file', filename = output_filename)
 
         return render_template('index_upscale.html', show_image = True, output_img = img_url, download_url = download_url)
@@ -76,5 +83,6 @@ def enhance():
 
 @imgUpscaler_bp.route('/download/<filename>')
 def download_file(filename):
-    return send_from_directory(OUTPUT_FOLDER, filename, as_attachment = True)
+    output_dir = os.path.abspath(OUTPUT_FOLDER)
 
+    return send_from_directory(directory=output_dir, path=filename, as_attachment=True)

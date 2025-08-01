@@ -90,7 +90,7 @@
 
     <h2>🔼 Enhance & Upscale Your Image</h2>
 
-    <form action="{{ url_for('imgUpscaler_bp.enhance') }}" method="post" enctype="multipart/form-data">
+    <form action="enhance" method="post" enctype="multipart/form-data">
         <input type="file" name="image" accept="image/*" required>
         <br>
         <button class="btn" type="submit">🚀 Upscale Image</button>

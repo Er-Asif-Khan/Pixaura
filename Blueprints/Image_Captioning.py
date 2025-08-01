@@ -49,6 +49,7 @@ def captionize():
             f.write(caption)
 
         img_url = url_for('static', filename = f'Image_Captioning/uploads/{filename}')
+        print(img_url)
 
         return render_template('index_caption.html', show_image = True, image = img_url, caption = caption)
     
