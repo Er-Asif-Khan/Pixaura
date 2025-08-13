@@ -11,7 +11,7 @@ from werkzeug.utils import secure_filename
 TEMPLATE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'templates'))
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(script_dir, "..", "models", "RealESRGAN_x2plus.pth")
+model_path = os.path.join(script_dir, "..", "models", "RealESRGAN_x4plus.pth")
 model_path = os.path.normpath(model_path)
 
 
@@ -32,14 +32,14 @@ use_half = True if torch.cuda.is_available() else False
 
 model = RRDBNet(
     num_in_ch=3, num_out_ch=3, num_feat=64,
-    num_block=23, num_grow_ch=32, scale=2
+    num_block=23, num_grow_ch=32, scale=4
 )
 
 upsampler = RealESRGANer(
-    scale=2,
+    scale=4,
     model_path=model_path,
     model=model,
-    tile=0,
+    tile=128,
     tile_pad=10,
     pre_pad=0,
     half=use_half,
@@ -56,6 +56,18 @@ def enhance():
         return jsonify({'error': 'No Image Uploaded'})
     
     file = request.files['image']
+  
+    file.seek(0, os.SEEK_END)
+    file_length = file.tell()
+    file.seek(0)  # Reset cursor
+
+    if file_length > 512 * 1024:  # 512 KB
+        return render_template(
+            'index_upscale.html',
+            show_image=False,
+            error="Image too large. Maximum allowed size is 512 KB."
+        ), 413
+
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
@@ -63,9 +75,20 @@ def enhance():
         file.save(input_path)
 
         img = Image.open(input_path).convert('RGB')
-        img_np = np.array(img)
 
-        output_np, _ = upsampler.enhance(img_np, outscale=2)
+        max_dimension = 600
+        if max(img.size) > max_dimension:
+            img_small = img.resize((img.width // 2, img.height // 2), Image.LANCZOS)
+        else:
+            img_small = img  
+        
+        img_np = np.array(img_small)
+
+        with torch.inference_mode():
+            output_np, _ = upsampler.enhance(img_np, outscale=4)
+
+        output_np = output_np.astype(np.uint8)
+
 
         ext = os.path.splitext(filename)[1].lower()
         name_wo_ext = os.path.splitext(filename)[0]
@@ -75,6 +98,9 @@ def enhance():
 
         img_url = f"http://localhost:5000/static/Image_Upscaler/outputs/{output_filename}"
         download_url = url_for('imgUpscaler_bp.download_file', filename = output_filename)
+
+        img.close()
+        img_small.close()
 
         return render_template('index_upscale.html', show_image = True, output_img = img_url, download_url = download_url)
     

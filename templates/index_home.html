@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartVision Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename = 'Image_Home/style_home.css') }}" rel="stylesheet">
+</head>
+<body>
+
+    <h1>🎯 SmartVision Hub</h1>
+
+    <div class="card-container">
+        <div class="card">
+            <h3>Image Upscaler</h3>
+            <p>Enhance low-resolution images using AI upscaling.</p>
+            <a href="/Upscaler/">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>Image Captioning</h3>
+            <p>Generate meaningful captions for uploaded images.</p>
+            <a href="/Captionize/">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>Image Compressor</h3>
+            <p>Compress image size with custom quality settings.</p>
+            <a href="/Compressor/">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>Background Remover</h3>
+            <p>Automatically remove the background of your image.</p>
+            <a href="/BgRemover/">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>Image Resizer</h3>
+            <p>Resize your image using flexible width and height.</p>
+            <a href="/Resizer/">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>BW to Color</h3>
+            <p>Convert black & white images into colorful ones.</p>
+            <a href="/Colorizer/">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>Comic Generator</h3>
+            <p>Convert photos into real life Comic.</p>
+            <a href="/Comic/">Open</a>
+        </div>
+    </div>
+</body>
+</html>
