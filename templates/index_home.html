@@ -2,56 +2,104 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SmartVision Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link href="{{ url_for('static', filename = 'Image_Home/style_home.css') }}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixaura - Image Enhancement Tools</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'Image_Home/style_home.css') }}">
 </head>
 <body>
-
-    <h1>🎯 SmartVision Hub</h1>
-
-    <div class="card-container">
-        <div class="card">
-            <h3>Image Upscaler</h3>
-            <p>Enhance low-resolution images using AI upscaling.</p>
-            <a href="/Upscaler/">Open</a>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="index_home.html" style="text-decoration: none; color: inherit;">Pixaura<span class="heart"></span></a>
         </div>
+        <ul class="nav-links">
+            <li><a href="/Upscaler/">Img Enhancer</a></li>
+            <li><a href="/Captionize/">Img Captionizer</a></li>
+            <li><a href="/Colorizer">BW to Colorful Converter</a></li>
+            <li><a href="/BgRemover/">BG Remover</a></li>
+            <li><a href="/Compressor/">Img Compressor</a></li>
+            <li><a href="/Resizer/">Img Resizer</a></li>
+            <li><a href="/Comic/" class="comic-btn">🎨 Comic Area</a></li>
+        </ul>
+        <button id="themeToggle">🌓</button>
+    </nav>
+</header>
 
-        <div class="card">
-            <h3>Image Captioning</h3>
-            <p>Generate meaningful captions for uploaded images.</p>
-            <a href="/Captionize/">Open</a>
-        </div>
+    <main class="main">
+        <section class="hero">
+            <h1>All-in-One AI Image Enhancement Tools</h1>
+            <p>Enhance, compress, resize, colorize, and caption images with AI — fast, free, and high quality.</p>
+        </section>
 
-        <div class="card">
-            <h3>Image Compressor</h3>
-            <p>Compress image size with custom quality settings.</p>
-            <a href="/Compressor/">Open</a>
-        </div>
+        <section class="categories">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="enhancement">Enhancement</button>
+            <button class="category-btn" data-category="resize">Resize</button>
+            <button class="category-btn" data-category="colorize">Colorize</button>
+            <button class="category-btn" data-category="caption">Caption</button>
+        </section>
 
-        <div class="card">
-            <h3>Background Remover</h3>
-            <p>Automatically remove the background of your image.</p>
-            <a href="/BgRemover/">Open</a>
-        </div>
+        <section class="tools-grid">
+            
+            <a href="/Upscaler/" class="card-link">
+                <div class="tool-card" data-category="enhancement">
+                    <div class="tool-icon compress">🗜️</div>
+                    <h3>Img Enhancer</h3>
+                    <p>Enhance image resolution using AI — upscale without losing clarity or sharpness.</p>
+                </div>
+            </a>
+            
+            <a href="/Captionize/" class="card-link">
+                <div class="tool-card" data-category="caption">
+                    <div class="tool-icon powerpoint">📊</div>
+                    <h3>Img Captionizer</h3>
+                    <p>Generate accurate and relevant captions for images using AI-powered recognition.</p>
+                </div>
+            </a>
 
-        <div class="card">
-            <h3>Image Resizer</h3>
-            <p>Resize your image using flexible width and height.</p>
-            <a href="/Resizer/">Open</a>
-        </div>
+            <a href="/Colorizer/" class="card-link">
+                <div class="tool-card" data-category="colorize">
+                    <div class="tool-icon word">📝</div>
+                    <h3>BW to Colorful</h3>
+                    <p>Turn black and white photos into vivid color using smart colorization technology.</p>
+                </div>
+            </a>
 
-        <div class="card">
-            <h3>BW to Color</h3>
-            <p>Convert black & white images into colorful ones.</p>
-            <a href="/Colorizer/">Open</a>
-        </div>
+            <a href="/BgRemover/" class="card-link">
+                <div class="tool-card" data-category="enhancement">
+                    <div class="tool-icon split">📄</div>
+                    <h3>BG Remover</h3>
+                    <p>Remove image backgrounds instantly with precision — perfect for clean, transparent visuals.</p>
+                </div>
+            </a>
 
-        <div class="card">
-            <h3>Comic Generator</h3>
-            <p>Convert photos into real life Comic.</p>
-            <a href="/Comic/">Open</a>
-        </div>
-    </div>
+            <a href="/Compressor/" class="card-link">
+                <div class="tool-card" data-category="resize">
+                    <div class="tool-icon merge">📄</div>
+                    <h3>Img Compressor</h3>
+                    <p>Reduce image file size while keeping quality intact — ideal for faster uploads and saving space.</p>
+                </div>
+            </a>
+
+            <a href="/Resizer/" class="card-link">
+                <div class="tool-card" data-category="resize">
+                    <div class="tool-icon excel">📈</div>
+                    <h3>Img Resizer</h3>
+                    <p>Resize images to custom dimensions in seconds — fast, simple, and quality-preserving.</p>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename = 'Image_Home/main_home.js') }}"></script>
+
+    <script src="{{ url_for('static', filename = 'Image_Home/particles_home.js') }}"></script>
+    <script>
+        const toggleBtn = document.getElementById('themeToggle');
+        toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        });
+    </script>
+
 </body>
 </html>
