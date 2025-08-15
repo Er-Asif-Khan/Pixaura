@@ -14,7 +14,6 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 load_dotenv()
 
 GITHUB_PAT = os.getenv('GITHUB_PAT')
-print(GITHUB_PAT)
 
 def generate_text(genre, count):
     token = GITHUB_PAT
