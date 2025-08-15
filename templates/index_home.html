@@ -5,25 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pixaura - Image Enhancement Tools</title>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'Image_Home/style_home.css') }}">
+    
 </head>
 <body>
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="index_home.html" style="text-decoration: none; color: inherit;">Pixaura<span class="heart"></span></a>
-        </div>
-        <ul class="nav-links">
-            <li><a href="/Upscaler/">Img Enhancer</a></li>
-            <li><a href="/Captionize/">Img Captionizer</a></li>
-            <li><a href="/Colorizer">BW to Colorful Converter</a></li>
-            <li><a href="/BgRemover/">BG Remover</a></li>
-            <li><a href="/Compressor/">Img Compressor</a></li>
-            <li><a href="/Resizer/">Img Resizer</a></li>
-            <li><a href="/Comic/" class="comic-btn">🎨 Comic Area</a></li>
-        </ul>
-        <button id="themeToggle">🌓</button>
-    </nav>
-</header>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;">Pixaura<span class="heart"></span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/Upscaler/">Img Enhancer</a></li>
+                <li><a href="/Captionize/">Img Captionizer</a></li>
+                <li><a href="/Colorizer">BW to Colorful Converter</a></li>
+                <li><a href="/BgRemover/">BG Remover</a></li>
+                <li><a href="/Compressor/">Img Compressor</a></li>
+                <li><a href="/Resizer/">Img Resizer</a></li>
+                <li><a href="/Comic/" class="comic-btn">🎨 Comic Area</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button id="themeToggle" title="Toggle theme">🌓</button>
+            </div>
+        </nav>
+    </header>
 
     <main class="main">
         <section class="hero">
@@ -40,7 +43,6 @@
         </section>
 
         <section class="tools-grid">
-            
             <a href="/Upscaler/" class="card-link">
                 <div class="tool-card" data-category="enhancement">
                     <div class="tool-icon compress">🗜️</div>
@@ -85,21 +87,15 @@
                 <div class="tool-card" data-category="resize">
                     <div class="tool-icon excel">📈</div>
                     <h3>Img Resizer</h3>
-                    <p>Resize images to custom dimensions in seconds — fast, simple, and quality-preserving.</p>
+                    <p>Transform and Resize images to custom dimensions in seconds — fast, simple, and quality-preserving.</p>
                 </div>
             </a>
         </section>
     </main>
 
-    <script src="{{ url_for('static', filename = 'Image_Home/main_home.js') }}"></script>
-
     <script src="{{ url_for('static', filename = 'Image_Home/particles_home.js') }}"></script>
-    <script>
-        const toggleBtn = document.getElementById('themeToggle');
-        toggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('light-mode');
-        });
-    </script>
+    
+    <script src="{{ url_for('static', filename = 'Image_Home/main_home.js') }}"></script>
 
 </body>
 </html>

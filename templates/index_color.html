@@ -4,30 +4,73 @@
     <meta charset="UTF-8">
     <title>🖤➜🎨 B/W to Colorizer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ url_for('static', filename = 'Image_BW2Color/style_color.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'Image_BW2Color/style_color.css') }}" >
 </head>
 <body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;">Pixaura<span class="heart"></span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/Upscaler/">Img Enhancer</a></li>
+                <li><a href="/Captionize/">Img Captionizer</a></li>
+                <li><a href="/Colorizer" class="active">BW to Colorful Converter</a></li>
+                <li><a href="/BgRemover/">BG Remover</a></li>
+                <li><a href="/Compressor/">Img Compressor</a></li>
+                <li><a href="/Resizer/">Img Resizer</a></li>
+                <li><a href="/Comic/" class="comic-btn">🎨 Comic Area</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button id="themeToggle" title="Toggle theme">🌓</button>
+            </div>
+        </nav>
+    </header>
 
-    <h1>🎨 Black & White ➜ Colorizer</h1>
-    <p class="info">Upload a grayscale image to see it colorized using deep learning!</p>
+    <main class="main">
+        <div class="tool-header">
+            <h1>BW To Colourful</h1>
+            <p>Turn black and white photos into vivid color using smart colorization technology.</p>
+        </div>
 
-    <!-- Upload Form -->
-    <form action="{{ url_for('imgBW2Color_bp.colorize') }}" method="post" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*" required><br>
-        <button type="submit">✨ Colorize</button>
-    </form>
+        <div class="upload-area">
+            <div class="drop-zone" id="dropZone"></div>
+            <div class="upload-container">
+                <button class="select-files-btn" id="selectBtn">Select Image</button>
+                <div class="upload-icons">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-icon">☁️</div>
+                </div>
+            </div>
+            <p class="drop-text">or drop Image here</p>
+            <form action="{{ url_for('imgBW2Color_bp.colorize') }}" method="post" enctype="multipart/form-data">
+            <input type="file" id="fileInput" class="file-input" name="image" accept="image/*" required>
+            <br>
+            <button type="submit">✨ Colorize</button>
+            </form>
+        </div>
+        {% if show_image %}
+        <!-- Output -->
+        <div class="image-output">
+            <h2>🌈 Colorized Output</h2>
+            <img src="{{ output_img }}" alt="Colorized Image"><br>
 
-    {% if show_image %}
-    <!-- Output -->
-    <div class="image-output">
-        <h2>🌈 Colorized Output</h2>
-        <img src="{{ output_img }}" alt="Colorized Image"><br>
+            <a href="{{ download_url }}" download>
+                <button class="download-btn">⬇️ Download Colorized Image</button>
+            </a>
+        </div>
+        {% endif %}
+    </main>
 
-        <a href="{{ download_url }}" download>
-            <button class="download-btn">⬇️ Download Colorized Image</button>
-        </a>
-    </div>
-    {% endif %}
+    <footer class="footer">
+        <p>© Pixaura 2025 ® - Your Image Processing Platform</p>
+    </footer>
+    
+    <script src="{{ url_for('static', filename = 'Image_BW2Color/theme_bw2color.js') }}"></script>
+    
+    <script src="{{ url_for('static', filename = 'Image_BW2Color/main_bw2color.js') }}"></script>
+
+    <script src="{{ url_for('static', filename = 'Image_BW2Color/particles_bw2color.js') }}"></script>
 
 </body>
 </html>

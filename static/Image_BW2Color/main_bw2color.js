@@ -87,13 +87,3 @@ menuIcon.addEventListener('click', () => {
 
 // Make removeFile function global
 window.removeFile = removeFile;
-
-
-function copyCaption() {
-    const caption = document.getElementById("caption-text").innerText;
-    navigator.clipboard.writeText(caption).then(() => {
-        alert("✅ Caption copied to clipboard!");
-    }).catch(err => {
-        alert("❌ Failed to copy: " + err);
-    });
-}

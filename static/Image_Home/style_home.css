@@ -279,3 +279,23 @@ body {
         color: inherit;
     }
 }
+
+.tools-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.card-link {
+    flex: 1 1 calc(33.333% - 20px);
+    box-sizing: border-box;
+}
+@media (max-width: 768px) {
+    .card-link {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+@media (max-width: 480px) {
+    .card-link {
+        flex: 1 1 100%;
+    }
+}

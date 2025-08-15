@@ -1,16 +1,36 @@
-const categoryButtons = document.querySelectorAll('.category-btn');
-const toolCards = document.querySelectorAll('.tool-card');
+const toggleBtn = document.getElementById('themeToggle');
 
-categoryButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        categoryButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+// Apply saved theme on page load
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+}
 
-        const selectedCategory = button.dataset.category;
+// Toggle theme and save preference
+toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    if (document.body.classList.contains('light-mode')) {
+        localStorage.setItem('theme', 'light');
+    } else {
+        localStorage.setItem('theme', 'dark');
+    }
+});
 
-        toolCards.forEach(card => {
-            if (selectedCategory === 'all' || card.dataset.category === selectedCategory) {
-                card.style.display = 'block';
+// Filtering logic (fixed for realignment)
+const categoryBtns = document.querySelectorAll('.category-btn');
+const cards = document.querySelectorAll('.card-link');
+
+categoryBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const category = btn.getAttribute('data-category');
+
+        cards.forEach(card => {
+            const cardCategory = card.querySelector('.tool-card').getAttribute('data-category');
+            if (category === 'all' || cardCategory === category) {
+                card.style.display = 'flex';
             } else {
                 card.style.display = 'none';
             }
@@ -24,3 +44,4 @@ const navLinks = document.querySelector('.nav-links');
 menuIcon.addEventListener('click', () => {
     navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
 });
+
