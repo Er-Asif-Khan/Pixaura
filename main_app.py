@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, Response
+from flask import Flask, render_template
 from Blueprints.Image_Captioning import imgCaptioning_bp
 from Blueprints.Image_Compressor import imgCompressor_bp
 from Blueprints.Image_Resizer import imgResizer_bp

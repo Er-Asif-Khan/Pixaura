@@ -1,31 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>🔼 Image Upscaler</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔼 Image Upscaler</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='Image_Upscaler/style_upscaler.css') }}">
-
 </head>
 <body>
-    <h2>🔼 Enhance & Upscale Your Image</h2>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;">Pixaura<span class="heart"></span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/Upscaler/" class="active">Img Enhancer</a></li>
+                <li><a href="/Captionize/">Img Captionizer</a></li>
+                <li><a href="/Colorizer">BW to Colorful Converter</a></li>
+                <li><a href="/BgRemover/">BG Remover</a></li>
+                <li><a href="/Compressor/">Img Compressor</a></li>
+                <li><a href="/Resizer/">Img Resizer</a></li>
+                <li><a href="/Comic/" class="comic-btn">🎨 Comic Area</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button id="themeToggle" title="Toggle theme">🌓</button>
+            </div>
+        </nav>
+    </header>
 
-    <form action="enhance" method="post" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*" required>
-        <br>
-        <button class="btn" type="submit">🚀 Upscale Image</button>
-    </form>
+    <main class="main">
+        <div class="tool-header">
+            <h1>IMAGE Enhancer</h1>
+            <p>Enhance image resolution using AI — upscale without losing clarity or sharpness.</p>
+        </div>
 
-    {% if show_image %}
-    <div class="output-section">
-        <h2>✨ Enhanced Output</h2>
-        <img src="{{ output_img }}" alt="Upscaled Image">
-        <br>
-        <a class="download-btn" href="{{ download_url }}" download>
-            <button class="btn">⬇️ Download Enhanced Image</button>
-        </a>
-    </div>
-    {% endif %}
+        <div class="upload-area">
+            <div class="drop-zone" id="dropZone"></div>
+            <div class="upload-container">
+                <button class="select-files-btn" id="selectBtn">Select Image</button>
+                <div class="upload-icons">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-icon">☁️</div>
+                </div>
+            </div>
+            <p class="drop-text">or drop Image here</p>
+            <form action="enhance" method="post" enctype="multipart/form-data">
+                <input type="file" id="fileInput" class="file-input" name="image" accept="image/*" required>
+                <br>
+                <button class="btn" type="submit">🚀 Upscale Image</button>
+            </form>
+        </div>
+
+        <div class="file-list" id="fileList"></div>
+        {% if show_image %}
+        <div class="output-section">
+            <h2>✨ Enhanced Output</h2>
+            <img src="{{ output_img }}" alt="Upscaled Image">
+            <br>
+            <a class="download-btn" href="{{ download_url }}" download>
+                <button class="btn">⬇️ Download Enhanced Image</button>
+            </a>
+        </div>
+        {% endif %}
+    </main>
+
+    <footer class="footer">
+        <p>© Pixaura 2025 ® - Your Image Processing Platform</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename = 'Image_Upscaler/main_upscaler.js') }}"></script>
+
+    <script src="{{ url_for('static', filename = 'Image_Upscaler/particles_upscaler.js') }}"></script>
+
+    <script src="{{ url_for('static', filename = 'Image_Upscaler/theme_upscaler.js') }}"></script>
 
 </body>
-</html>
+</lang=>
