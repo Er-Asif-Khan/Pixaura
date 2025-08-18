@@ -1,7 +1,6 @@
 import os
 from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
-from PIL import Image
 from flask import redirect, render_template, request, url_for, jsonify, Blueprint
 from werkzeug.utils import secure_filename
 
@@ -17,7 +16,7 @@ ALLOWED_EXTENSIONS = {'jpg', 'png', 'jpeg', 'webp'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
+processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base", use_fast = True)
 model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
 
 @imgCaptioning_bp.route('/')

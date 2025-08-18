@@ -57,7 +57,7 @@ document.getElementById('comicForm').addEventListener('submit', function(e) {
 e.preventDefault();
 
 const formData = new FormData();
-const fileInput = document.getElementById('imageInput');
+const fileInput = document.getElementById('fileInput');
 const genre = document.getElementById('genre').value;
 if (!fileInput.files.length) return alert("Please select an image");
 formData.append('image', fileInput.files[0]);

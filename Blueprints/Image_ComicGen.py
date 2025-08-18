@@ -25,7 +25,7 @@ def generate_text(genre, count):
         api_key=token,
     )
     
-    prompt = f"Write {count} short comic-style dialogue lines in the {genre} genre.Each line must be **no more than 5 words**, witty, casual, and suitable for speech bubbles in a comic with human characters.Avoid numbering or labels.Keep the tone humorous or expressive depending on the genre. and remove '*' from all sentences and don't start sentence with '-' and don't enclose the sentence in "" (quotes)"
+    prompt = f"Write {count} short comic-style dialogue lines in the {genre} genre.Each line must be **no more than 5 words**, witty, casual, and suitable for speech bubbles in a comic with human characters.Avoid numbering or labels.Keep the tone humorous or expressive depending on the genre. and remove '*' from all sentences and don't start sentence with '-' and don't enclose the sentence in "" (quotes), make the comic in easy humor."
 
     response = client.chat.completions.create(
         messages=[
