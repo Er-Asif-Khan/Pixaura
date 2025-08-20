@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pixaura - Image Enhancement Tools</title>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'Image_Home/style_home.css') }}">
-    
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename = 'Image_Home/Logos/icon.png') }}"> 
 </head>
 <body>
     <header class="header">
         <nav class="nav">
             <div class="logo">
-                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;">Pixaura<span class="heart"></span></a>
+                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;"><img src="{{ url_for('static', filename = 'Image_Home/Logos/icon64.png') }}">Pixaura<span class="heart"></span></a>
             </div>
             <ul class="nav-links">
-                <li><a href="/Upscaler/">Img Enhancer</a></li>
+                <li><a href="http://localhost:5001/Upscaler/">Img Enhancer</a></li>
                 <li><a href="/Captionize/">Img Captionizer</a></li>
                 <li><a href="/Colorizer">BW to Colorful Converter</a></li>
                 <li><a href="/BgRemover/">BG Remover</a></li>
@@ -43,9 +43,9 @@
         </section>
 
         <section class="tools-grid">
-            <a href="/Upscaler/" class="card-link">
+            <a href="http://localhost:5001/Upscaler/" class="card-link">
                 <div class="tool-card" data-category="enhancement">
-                    <div class="tool-icon compress">🗜️</div>
+                    <div class="tool-icon compress"><img src = "{{ url_for('static', filename = 'Image_Home/Logos/upscale.png') }}" width="48" height="48"></div>
                     <h3>Img Enhancer</h3>
                     <p>Enhance image resolution using AI — upscale without losing clarity or sharpness.</p>
                 </div>
@@ -53,7 +53,7 @@
             
             <a href="/Captionize/" class="card-link">
                 <div class="tool-card" data-category="caption">
-                    <div class="tool-icon powerpoint">📊</div>
+                    <div class="tool-icon powerpoint"><img src = "{{ url_for('static', filename = 'Image_Home/Logos/caption.png') }}" width="32" height="32"></div>
                     <h3>Img Captionizer</h3>
                     <p>Generate accurate and relevant captions for images using AI-powered recognition.</p>
                 </div>
@@ -61,7 +61,7 @@
 
             <a href="/Colorizer/" class="card-link">
                 <div class="tool-card" data-category="colorize">
-                    <div class="tool-icon word">📝</div>
+                    <div class="tool-icon word"><img src = "{{ url_for('static', filename = 'Image_Home/Logos/color.png') }}" width="48" height="48"></div>
                     <h3>BW to Colorful</h3>
                     <p>Turn black and white photos into vivid color using smart colorization technology.</p>
                 </div>
@@ -69,7 +69,7 @@
 
             <a href="/BgRemover/" class="card-link">
                 <div class="tool-card" data-category="enhancement">
-                    <div class="tool-icon split">📄</div>
+                    <div class="tool-icon split"><img src = "{{ url_for('static', filename = 'Image_Home/Logos/bgremove.png') }}" width="32" height="32"></div>
                     <h3>BG Remover</h3>
                     <p>Remove image backgrounds instantly with precision — perfect for clean, transparent visuals.</p>
                 </div>
@@ -77,7 +77,7 @@
 
             <a href="/Compressor/" class="card-link">
                 <div class="tool-card" data-category="resize">
-                    <div class="tool-icon merge">📄</div>
+                    <div class="tool-icon merge"><img src = "{{ url_for('static', filename = 'Image_Home/Logos/compress.png') }}" width="32" height="32"></div>
                     <h3>Img Compressor</h3>
                     <p>Reduce image file size while keeping quality intact — ideal for faster uploads and saving space.</p>
                 </div>
@@ -85,7 +85,7 @@
 
             <a href="/Resizer/" class="card-link">
                 <div class="tool-card" data-category="resize">
-                    <div class="tool-icon excel">📈</div>
+                    <div class="tool-icon excel"><img src = "{{ url_for('static', filename = 'Image_Home/Logos/resize.png') }}" width="32" height="32"></div>
                     <h3>Img Resizer</h3>
                     <p>Transform and Resize images to custom dimensions in seconds — fast, simple, and quality-preserving.</p>
                 </div>

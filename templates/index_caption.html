@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🖼️ AI Image Caption Generator</title>
     <link rel="stylesheet"  href="{{ url_for('static', filename = 'Image_Captioning/style_captioning.css') }}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename = 'Image_Home/Logos/caption.png') }}">
 </head>
 <body>
     <header class="header">
         <nav class="nav">
             <div class="logo">
-                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;">Pixaura<span class="heart"></span></a>
+                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;"><img src="{{ url_for('static', filename = 'Image_Home/Logos/icon64.png') }}">Pixaura<span class="heart"></span></a>
             </div>
             <ul class="nav-links">
-                <li><a href="/Upscaler/">Img Enhancer</a></li>
+                <li><a href="http://localhost:5001/Upscaler/">Img Enhancer</a></li>
                 <li><a href="/Captionize/" class="active">Img Captionizer</a></li>
                 <li><a href="/Colorizer">BW to Colorful Converter</a></li>
                 <li><a href="/BgRemover/">BG Remover</a></li>
@@ -37,23 +38,21 @@
             <div class="drop-zone" id="dropZone"></div>
             <div class="upload-container">
                 <button class="select-files-btn" id="selectBtn">Select Image</button>
-                <div class="upload-icons">
-                    <div class="upload-icon">📁</div>
-                    <div class="upload-icon">☁️</div>
-                </div>
+                <span class="file-chosen" id="fileChosen">No file selected</span>
             </div>
-            <p class="drop-text">or drop Imgs here</p>
+
+            <p class="drop-text">or drop Image here</p>
             <form action="{{ url_for('imgCaptioning_bp.captionize') }}" method="POST" enctype="multipart/form-data">
             <input type="file" id="fileInput" class="file-input" name="image" accept="image/*" required>
             <br>
-            <button type="submit">🧠 Generate Caption</button>
+            <button class="btn" type="submit">🧠 Generate Caption</button>
             </form>
         </div>
 
         <div class="file-list" id="fileList"></div>
         {% if show_image %}
-        <div class="image-preview">
-            <h3>Uploaded Image:</h3>
+        <div class="output-section">
+            <h2>Uploaded Image:</h2>
             <img src="{{ image }}" alt="Uploaded Image">
         </div>
 

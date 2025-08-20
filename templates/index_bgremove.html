@@ -5,6 +5,7 @@
     <title>🧼 Background Remover</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename = 'Image_BgRemover/style_bgremover.css') }}">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename = 'Image_Home/Logos/bgremove.png') }}">
 
     <script>
         (function () {
@@ -19,10 +20,10 @@
     <header class="header">
         <nav class="nav">
             <div class="logo">
-                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;">Pixaura<span class="heart"></span></a>
+                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;"><img src="{{ url_for('static', filename = 'Image_Home/Logos/icon64.png') }}">Pixaura<span class="heart"></span></a>
             </div>
             <ul class="nav-links">
-                <li><a href="/Upscaler/">Img Enhancer</a></li>
+                <li><a href="http://localhost:5001/Upscaler/">Img Enhancer</a></li>
                 <li><a href="/Captionize/">Img Captionizer</a></li>
                 <li><a href="/Colorizer">BW to Colorful Converter</a></li>
                 <li><a href="/BgRemover/" class="active">BG Remover</a></li>
@@ -38,34 +39,33 @@
 
     <main class="main">
         <div class="tool-header">
-            <h1>BG Remover</h1>
+            <h1>Image Background Remover</h1>
             <p>Remove image backgrounds instantly with precision — perfect for clean, transparent visuals.</p>
         </div>
 
         <div class="upload-area">
             <div class="drop-zone" id="dropZone"></div>
             <div class="upload-container">
-                <button class="select-files-btn" id="selectBtn">Select PDF files</button>
-                <div class="upload-icons">
-                    <div class="upload-icon">📁</div>
-                    <div class="upload-icon">☁️</div>
-                </div>
+                <button class="select-files-btn" id="selectBtn">Select Image</button>
+                <span class="file-chosen" id="fileChosen">No file selected</span>
             </div>
+
             <p class="drop-text">or drop Image here</p>
             <form action="{{ url_for('imgBgRemover_bp.removebg') }}" method="post" enctype="multipart/form-data">
             <input type="file" id="fileInput" class="file-input" name="image" accept="image/*" required>
             <br>
-            <button type="submit">✨ Remove Background</button>
+            <button class="btn" type="submit">✨ Remove Background</button>
             </form>
         </div>
 
+        <div class="file-list" id="fileList"></div>
         {% if show_image %}
-        <div class="result-container">
-            <h3>🎉 Background Removed</h3>
-            <img src="{{ output_img }}" alt="Background Removed Image"><br>
-
-            <a href="{{ download_url }}" download>
-                <button class="download-btn">⬇️ Download Result</button>
+        <div class="output-section">
+            <h2>🎉 Background Removed</h2>
+            <img src="{{ output_img }}" alt="Upscaled Image">
+            <br>
+            <a class="download-btn" href="{{ download_url }}" download>
+                <button class="btn">⬇️ Download Result Image</button>
             </a>
         </div>
         {% endif %}

@@ -5,17 +5,18 @@
     <title>🖤➜🎨 B/W to Colorizer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename = 'Image_BW2Color/style_color.css') }}" >
+    <link rel="icon" type="image/png" sizes="80x80" href="{{ url_for('static', filename = 'Image_Home/Logos/color.png') }}">
 </head>
 <body>
     <header class="header">
         <nav class="nav">
             <div class="logo">
-                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;">Pixaura<span class="heart"></span></a>
+                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;"><img src="{{ url_for('static', filename = 'Image_Home/Logos/icon64.png') }}">Pixaura<span class="heart"></span></a>
             </div>
             <ul class="nav-links">
-                <li><a href="/Upscaler/">Img Enhancer</a></li>
+                <li><a href="http://localhost:5001/Upscaler/">Img Enhancer</a></li>
                 <li><a href="/Captionize/">Img Captionizer</a></li>
-                <li><a href="/Colorizer" class="active">BW to Colorful Converter</a></li>
+                <li><a href="/Colorizer/" class="active">BW to Colorful Converter</a></li>
                 <li><a href="/BgRemover/">BG Remover</a></li>
                 <li><a href="/Compressor/">Img Compressor</a></li>
                 <li><a href="/Resizer/">Img Resizer</a></li>
@@ -29,7 +30,7 @@
 
     <main class="main">
         <div class="tool-header">
-            <h1>BW To Colourful</h1>
+            <h1>Image BW To Colourful Converter</h1>
             <p>Turn black and white photos into vivid color using smart colorization technology.</p>
         </div>
 
@@ -37,26 +38,25 @@
             <div class="drop-zone" id="dropZone"></div>
             <div class="upload-container">
                 <button class="select-files-btn" id="selectBtn">Select Image</button>
-                <div class="upload-icons">
-                    <div class="upload-icon">📁</div>
-                    <div class="upload-icon">☁️</div>
-                </div>
+                <span class="file-chosen" id="fileChosen">No file selected</span>
             </div>
+            
             <p class="drop-text">or drop Image here</p>
             <form action="{{ url_for('imgBW2Color_bp.colorize') }}" method="post" enctype="multipart/form-data">
             <input type="file" id="fileInput" class="file-input" name="image" accept="image/*" required>
             <br>
-            <button type="submit">✨ Colorize</button>
+            <button class="btn" type="submit">✨ Colorize</button>
             </form>
         </div>
+        
+        <div class="file-list" id="fileList"></div>
         {% if show_image %}
-        <!-- Output -->
-        <div class="image-output">
+        <div class="output-section">
             <h2>🌈 Colorized Output</h2>
-            <img src="{{ output_img }}" alt="Colorized Image"><br>
-
-            <a href="{{ download_url }}" download>
-                <button class="download-btn">⬇️ Download Colorized Image</button>
+            <img src="{{ output_img }}" alt="Upscaled Image">
+            <br>
+            <a class="download-btn" href="{{ download_url }}" download>
+                <button class="btn">⬇️ Download Colorized Image</button>
             </a>
         </div>
         {% endif %}

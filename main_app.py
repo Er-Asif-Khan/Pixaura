@@ -22,9 +22,5 @@ app.register_blueprint(imgComicGen_bp, url_prefix="/Comic")
 def index():
     return render_template('index_home.html')
 
-@app.route('/Upscaler/')
-def embed_upscaler():
-    return render_template("embed_upscaler.html") 
-
 if __name__ == '__main__':
    app.run(debug=True, port = 5000)

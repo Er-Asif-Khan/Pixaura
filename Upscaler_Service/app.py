@@ -9,7 +9,7 @@ from Blueprints.Image_Upscaler import imgUpscaler_bp
 
 app = Flask(__name__, static_folder=static_path)
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024 
-app.register_blueprint(imgUpscaler_bp, url_prefix = "/")
+app.register_blueprint(imgUpscaler_bp, url_prefix = "/Upscaler")
 
 if __name__ == '__main__':
     app.run(debug = True, port = 5001)

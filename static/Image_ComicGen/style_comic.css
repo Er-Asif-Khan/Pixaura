@@ -346,7 +346,7 @@ body {
 }
 
 .comic-container {
-    flex: 1;
+    flex: 0.75;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -384,7 +384,7 @@ body {
     transform: scale(1.05);
 }
 
-.upload-area {
+/* .upload-area {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -398,13 +398,13 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease-in-out;
-}
+} */
 
-.upload-area:hover {
+/* .upload-area:hover {
     background: rgba(255, 255, 255, 0.12);
     transform: scale(1.02);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-}
+} */
 
 .nav-links a.comic-btn {
     font-family: 'Comic Sans MS', cursive, sans-serif;
@@ -493,8 +493,8 @@ body {
   margin-top: 20px;
   padding: 12px 25px;
   font-size: 1rem;
-  background: #28a745;
-  border: none;
+  background: var(--button-bg);
+  border: #000;
   border-radius: 8px;
   color: white;
   font-weight: bold;
@@ -504,7 +504,9 @@ body {
 }
 
 #downloadBtn:hover {
-  background: #34d058;
+  background: var(--button-hover-bg);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.6);
 }
 
 @media (max-width: 600px) {
@@ -527,4 +529,53 @@ form {
   padding: 15px;
   border-radius: 12px;
   justify-content: center;
+}
+
+.drop-zone {
+    position: absolute;
+    top: -2rem;
+    left: -2rem;
+    right: -2rem;
+    bottom: -1rem;
+    border: 2px dashed transparent;
+    border-radius: 1rem;
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.drop-zone.drag-over {
+    border-color: var(--button-bg);
+    background-color: rgba(239, 68, 68, 0.1);
+    pointer-events: all;
+}
+
+
+.file-chosen {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--nav-bg);
+    font-style: italic;
+    text-align: center;
+    justify-content: center;
+    transition: color 0.3s;
+    margin-bottom: 2rem;
+}
+
+.file-chosen.active {
+    color: var(--button-bg); /* red accent when a file is picked */
+    font-weight: 600;
+    font-style: normal;
+}
+
+.custom-file-upload {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.output-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--button-bg);
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
 }

@@ -5,42 +5,106 @@
     <title>📏 Image Resizer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ url_for('static', filename = 'Image_Resizer/style_resizer.css') }}" rel="stylesheet">
-    <script src = "{{ url_for('static', filename = 'Image_Resizer/main_resizer.js') }}"></script>
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename = 'Image_Home/Logos/resize.png') }}">
 </head>
 <body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;"><img src="{{ url_for('static', filename = 'Image_Home/Logos/icon64.png') }}">Pixaura<span class="heart"></span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="http://localhost:5001/Upscaler/">Img Enhancer</a></li>
+                <li><a href="/Captionize/">Img Captionizer</a></li>
+                <li><a href="/Colorizer/">BW to Colorful Converter</a></li>
+                <li><a href="/BgRemover/">BG Remover</a></li>
+                <li><a href="/Compressor/">Img Compressor</a></li>
+                <li><a href="/Resizer/" class="active">Img Resizer</a></li>
+                <li><a href="/Comic/" class="comic-btn">🎨 Comic Area</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button id="themeToggle" title="Toggle theme">🌓</button>
+            </div>
+        </nav>
+    </header>
 
-    <div class="container">
-        <h2>📏 Image Resizer</h2>
-
-        <form name="resizeForm" action="{{ url_for('imgResizer_bp.resize') }}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-            <div>
-                <label>Select Image:</label>
-                <input type="file" name="image" required>
+    <main class="main">
+        <div class="container">
+            <div class="title-section">
+                <h1 class="title">Image Resizer</h1>
+                <p class="subtitle">
+                    Resize images to custom dimensions in seconds — fast, simple, and quality-preserving.
+                </p>
             </div>
 
-            <div>
-                <label>Width (optional):</label>
-                <input type="number" name="width" min="1">
+            <div class="upload-container">
+                <div class="drop-zone" id="dropZone"></div>
+                <div class="upload-area" id="uploadArea">
+                    <form id="resizeForm" name="resizeForm" action="{{ url_for('imgResizer_bp.resize') }}" method="post" enctype="multipart/form-data">
+                        <button type="button" class="upload-btn" id="uploadBtn">
+                            Select Image
+                        </button>
+                        <span class="file-chosen" id="fileChosen">No file selected</span>
+                        <div class="upload-text">or drop Image here</div>
+                        <input type="file" id="fileInput" class="file-input" accept="image/*" name="image" required>
+                        <br><br>
+
+                        <div class="file-preview" id="filePreview">
+                            <img id="previewImg" class="preview-image" alt="Preview">
+                            <div class="file-info" id="imageInfo"></div>
+                        </div>
+                        <br><br>
+
+                        <div class="resize-params" id="resizeParams">
+                            <h3 class="resize-title">Resize Dimensions</h3>
+                            <p class="resize-subtitle">Enter your desired width and height</p>
+                            
+                            <div class="dimension-inputs">
+                                <div class="input-group">
+                                    <label class="input-label">Width (px)</label>
+                                    <input type="number" name="width" id="widthInput" class="dimension-input" placeholder="Width">
+                                </div>
+                                <div class="input-group">
+                                    <label class="input-label">Height (px)</label>
+                                    <input type="number" name="height" id="heightInput" class="dimension-input" placeholder="Height">
+                                </div>
+                            </div>
+
+                            <div class="aspect-ratio">
+                                <input type="checkbox" id="maintainAspect" class="checkbox" checked>
+                                <label for="maintainAspect">Maintain aspect ratio</label>
+                            </div>
+
+                            <button class="resize-btn" id="resizeBtn" type="button">Resize Image</button>
+
+                            
+
+                        </div>
+                    </form>
+                </div>
+                <div class="output-section" id="outputSection" style="display:none;">
+                    <h2>🖼️ Resized Image Preview:</h2>
+                    <img id="previewImg2" class="preview-image2" alt="Preview">
+                    <div class="file-info" id="imageInfo2"></div>
+                    <a href="#" class="download-link" id="downloadLink" download>
+                    ⬇️ Download Resized Image
+                    </a>
+                </div>
             </div>
-
-            <div>
-                <label>Height (optional):</label>
-                <input type="number" name="height" min="1">
-            </div>
-
-            <button type="submit">📐 Resize</button>
-        </form>
-
-        {% if show_image %}
-        <div class="result">
-            <h3>🖼️ Resized Image Preview:</h3>
-            <img src="{{ output_img }}" alt="Resized Image">
-            <a href="{{ download_url }}" download>
-                <button class="download-btn">⬇️ Download Resized Image</button>
-            </a>
         </div>
-        {% endif %}
-    </div>
+    </main>
+
+    
+    <footer class="footer">
+        <p>© Pixaura 2025 ® - Your Image Processing Platform</p>
+    </footer>
+
+    
+    <script src="{{ url_for('static', filename = 'Image_Resizer/theme_resizer.js') }}"></script>
+    
+    <script src="{{ url_for('static', filename = 'Image_Resizer/main_resizer.js') }}"></script>
+
+    <script src="{{ url_for('static', filename = 'Image_Resizer/particles_resizer.js') }}"></script>
 
 </body>
 </html>

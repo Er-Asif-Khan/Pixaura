@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Comic Area - Pixaura</title>
   <link rel="stylesheet" href="{{ url_for('static', filename = 'Image_ComicGen/style_comic.css') }}" />
+  <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename = 'Image_Home/Logos/comic.png') }}">
   <style>
     /* Fun comic pop-art background */
     body {
@@ -37,7 +38,7 @@
       margin-bottom: 1.5rem;
     }
 
-    .upload-area {
+    .select-btn {
       border: 4px solid #000;
       padding: 2rem;
       margin-bottom: 2rem;
@@ -49,7 +50,7 @@
       font-size: 1.2rem;
     }
 
-    .upload-area:hover {
+    .select-btn:hover {
       background: #b7f1ed;
       transform: scale(1.03);
     }
@@ -102,10 +103,22 @@
       background: #b7f1ed;
       transform: translateY(-2px);
     }
+
+    .output-section {
+      max-width: 750px;
+      margin: auto;
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.7);
+      border: 5px solid #000;
+      border-radius: 15px;
+      box-shadow: 8px 8px 0 #000;
+      margin-top: 5%;
+    }
   </style>
 </head>
 <body>
-  <header class="header">
+  <!-- <header class="header">
     <nav class="nav">
         <div class="logo">
             <a href="http://localhost:5000" style="text-decoration: none; color: inherit;">Pixaura<span class="heart"></span></a>
@@ -123,13 +136,19 @@
             <button id="themeToggle" title="Toggle theme">🌓</button>
         </div>
     </nav>
-  </header>
+  </header> -->
   <div class="comic-container">
     <h1>💥 Comic Generator 💥</h1>
     <form action = "./comicgen" id="comicForm" method="post" enctype="multipart/form-data">
-      <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-        📁 Click or Drag & Drop your image here
-        <input type="file" id="fileInput" class="file-input" name="image" accept="image/*" required>
+      <div class="upload-area">
+        <div class="drop-zone" id="dropZone"></div>
+        <div class="custom-file-upload">
+          <div class="select-btn" id="selectBtn">
+            📁 Click or Drop your Image here
+            <input type="file" id="fileInput" class="file-input" name="image" accept="image/*" required>
+          </div>
+          <span class="file-chosen" id="fileChosen">No file selected</span>
+        </div>
       </div>
 
       <div class="buttons">
@@ -147,16 +166,20 @@
       </div>
     </form>
   
+  </div>
+
+  
+  
+  <div class="output-section" style="display: none">
+    <h2>✨ Comic Output </h2>
     <div id="comicContainer" style="position: relative; display: inline-block;">
       <img id="previewImage" />
       <div id="bubblesLayer"></div>
     </div>
-    
     <canvas id="comicCanvas" style="display:none;"></canvas>
-    <button id="downloadBtn" style="display:none;">Download Comic</button>
+    <button id="downloadBtn" style="display:none;"> ⬇️Download Comic</button>
   </div>
 
-  <script src="{{ url_for('static', filename='Image_ComicGen/theme_comic.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="{{ url_for('static', filename = 'Image_ComicGen/main_comic.js') }}"></script>
 

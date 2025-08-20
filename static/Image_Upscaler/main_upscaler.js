@@ -4,6 +4,7 @@ const dropZone = document.getElementById('dropZone');
 const fileList = document.getElementById('fileList');
 const mergeBtn = document.getElementById('mergeBtn');
 const uploadArea = document.querySelector('.upload-area');
+const fileChosen = document.getElementById("fileChosen");
 
 let selectedFiles = [];
 
@@ -14,6 +15,16 @@ selectBtn.addEventListener('click', () => {
 
 fileInput.addEventListener('change', (e) => {
     handleFiles(e.target.files);
+});
+
+fileInput.addEventListener("change", () => {
+    if (fileInput.files.length > 0) {
+        fileChosen.textContent = fileInput.files[0].name;
+        fileChosen.classList.add("active");
+    } else {
+        fileChosen.textContent = "No file chosen";
+        fileChosen.classList.remove("active");
+    }
 });
 
 // Drag and drop functionality
@@ -35,55 +46,20 @@ uploadArea.addEventListener('drop', (e) => {
     handleFiles(e.dataTransfer.files);
 });
 
+function handleFiles(files) {
+    if (files.length > 0) {
+        // Create a DataTransfer to assign dropped file to file input
+        const dataTransfer = new DataTransfer();
+        for (let i = 0; i < files.length; i++) {
+            dataTransfer.items.add(files[i]);
+        }
+        fileInput.files = dataTransfer.files; // Now input has the dropped file(s)
 
-function displayFiles() {
-    fileList.innerHTML = '';
-    
-    selectedFiles.forEach((file, index) => {
-        const fileItem = document.createElement('div');
-        fileItem.className = 'file-item';
-        fileItem.innerHTML = `
-            <div class="file-info">
-                <div class="file-icon">📄</div>
-                <div class="file-details">
-                    <h4>${file.name}</h4>
-                    <p>${formatFileSize(file.size)}</p>
-                </div>
-            </div>
-            <button class="remove-btn" onclick="removeFile(${index})">✕</button>
-        `;
-        fileList.appendChild(fileItem);
-    });
-
-    // Show merge button if files are selected
-    if (selectedFiles.length > 1) {
-        mergeBtn.classList.add('show');
+        // Update text
+        fileChosen.textContent = files[0].name;
+        fileChosen.classList.add("active");
     } else {
-        mergeBtn.classList.remove('show');
+        fileChosen.textContent = "No file selected";
+        fileChosen.classList.remove("active");
     }
 }
-
-function removeFile(index) {
-    selectedFiles.splice(index, 1);
-    displayFiles();
-}
-
-function formatFileSize(bytes) {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-}
-
-
-// Mobile menu toggle
-const menuIcon = document.querySelector('.menu-icon');
-const navLinks = document.querySelector('.nav-links');
-
-menuIcon.addEventListener('click', () => {
-    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-});
-
-// Make removeFile function global
-window.removeFile = removeFile;

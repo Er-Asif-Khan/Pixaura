@@ -2,38 +2,128 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>📦 Image Compressor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📦 Image Compressor</title>
     <link href="{{ url_for('static', filename = 'Image_Compressor/style_compressor.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="64x64" href="{{ url_for('static', filename = 'Image_Home/Logos/compress.png') }}">
+</head>
 </head>
 <body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="http://localhost:5000" style="text-decoration: none; color: inherit;"><img src="{{ url_for('static', filename = 'Image_Home/Logos/icon64.png') }}">Pixaura<span class="heart"></span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="http://localhost:5001/Upscaler/">Img Enhancer</a></li>
+                <li><a href="/Captionize/">Img Captionizer</a></li>
+                <li><a href="/Colorizer/">BW to Colorful Converter</a></li>
+                <li><a href="/BgRemover/">BG Remover</a></li>
+                <li><a href="/Compressor/" class="active">Img Compressor</a></li>
+                <li><a href="/Resizer/">Img Resizer</a></li>
+                <li><a href="/Comic/" class="comic-btn">🎨 Comic Area</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button id="themeToggle" title="Toggle theme">🌓</button>
+            </div>
+        </nav>
+    </header>
 
-    <div class="container">
-        <h2>📦 Image Compressor</h2>
+    <main class="main">
+        <div class="tool-header">
+            <h1>COMPRESS PDF</h1>
+            <p>Reduce image file size while keeping quality intact — ideal for faster uploads and saving space.</p>
+        </div>
 
-        <form action="{{ url_for('imgCompressor_bp.compress') }}" method="post" enctype="multipart/form-data">
-            <label>Select Image:</label>
-            <input type="file" name="image" accept="image/*" required>
+        <div class="upload-area">
+            <div class="drop-zone" id="dropZone"></div>
+            <div class="upload-container">
+                <button class="select-files-btn" id="selectBtn">Select Image</button>
+                <span class="file-chosen" id="fileChosen">No file selected</span>
+            </div>
 
-            <label>Compression Quality (1–100):</label>
-            <input type="number" name="quality" value="" min="1" max="100" required>
+            <p class="drop-text">or drop Image here</p>
+            
+            <form action="{{ url_for('imgCompressor_bp.compress') }}" method="post" enctype="multipart/form-data">
+                <input type="file" id="fileInput" class="file-input" name="image" accept="image/*" required>
+                
 
-            <button type="submit">🔧 Compress Image</button>
-        </form>
+                <div class="quality-input-group">
+                    <label for="quality">Compression Quality (1–100):</label>
+                    <input type="number" id="quality" name="quality" min="1" max="1SSSS00" required>
+                </div>
+                <br><br>
 
+
+                <button class="btn" type="submit">🔧 Compress Image</button>
+            </form>
+        </div>
+
+        
+        <div class="file-list" id="fileList"></div>
         {% if show_image %}
-        <div class="result">
-            <h3>🖼️ Compressed Image Preview</h3>
+        <div class="output-section">
+            <h2>🖼️ Compressed Image Preview</h2>
             <img src="{{ output_img }}" alt="Compressed Image">
-
+            <br>
             <p class="file-size">📏 File Size: {{ file_size }} KB</p>
-
-            <a href="{{ download_url }}" download>
-                <button class="download-btn">⬇️ Download Compressed Image</button>
+            <a class="download-btn" href="{{ download_url }}" download>
+                <button class="btn">⬇️ Download Compressed Image</button>
             </a>
         </div>
         {% endif %}
-    </div>
+    </main>
 
+    <footer class="footer">
+        <p>© Pixaura 2025 ® - Your Image Processing Platform</p>
+    </footer>
+    
+    <script src="{{ url_for('static', filename = 'Image_Compressor/theme_compressor.js') }}"></script>
+    
+    <script src="{{ url_for('static', filename = 'Image_Compressor/main_compressor.js') }}"></script>
+
+    <script src="{{ url_for('static', filename = 'Image_Compressor/particles_compressor.js') }}"></script>
+
+   <script>
+    const toggleBtn = document.getElementById('themeToggle');
+
+    // Apply saved theme on page load
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+    }
+
+    // Toggle theme and save preference
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        if (document.body.classList.contains('light-mode')) {
+            localStorage.setItem('theme', 'light');
+        } else {
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // Filtering logic (fixed for realignment)
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const cards = document.querySelectorAll('.card-link');
+
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const category = btn.getAttribute('data-category');
+
+            cards.forEach(card => {
+                const cardCategory = card.querySelector('.tool-card').getAttribute('data-category');
+                if (category === 'all' || cardCategory === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

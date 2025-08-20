@@ -1,3 +1,11 @@
+const selectBtn = document.getElementById('selectBtn');
+const fileInput = document.getElementById('fileInput');
+const dropZone = document.getElementById('dropZone');
+const uploadArea = document.querySelector('.upload-area');
+const outputSection = document.querySelector('.output-section');
+const fileChosen = document.getElementById("fileChosen");
+
+
 function adjustBubble(bubble, head, imgWidth, imgHeight, scaleX, scaleY, isLeft) {
     let bw = head.bubble_width * scaleX;
     let bh = bw;
@@ -47,11 +55,22 @@ function adjustBubble(bubble, head, imgWidth, imgHeight, scaleX, scaleY, isLeft)
       tries++;
     }
 
+    x -= 35;
+    y -= 10;
+
     bubble.style.left = x + "px";
     bubble.style.top = y + "px";
     // bubble.style.width = (bw * 2) + "px";
     bubble.style.fontSize = (fontSize * 1.15) + "px";
 }
+
+function getComicFileName(file) {
+    const originalName = file.name;
+    const dotIndex = originalName.lastIndexOf(".");
+    const baseName = dotIndex > 0 ? originalName.substring(0, dotIndex) : originalName;
+    return baseName + "_comic.png";
+}
+
 
 document.getElementById('comicForm').addEventListener('submit', function(e) {
 e.preventDefault();
@@ -96,6 +115,8 @@ fetch('./comicgen', { method: 'POST', body: formData })
         });
 
         downloadBtn.style.display = "inline-block";
+        outputSection.style.display = "inline-block";
+        
       };
     };
     reader.readAsDataURL(fileInput.files[0]);
@@ -110,8 +131,72 @@ document.getElementById('downloadBtn').addEventListener('click', function() {
   const container = document.getElementById('comicContainer');
   html2canvas(container, { backgroundColor: null }).then(canvas => {
     const link = document.createElement('a');
-    link.download = "comic_image.png";
+    if (fileInput.files.length > 0) {
+      link.download = getComicFileName(fileInput.files[0]);
+    } else {
+      link.download = "comic.png"; // fallback
+    }
     link.href = canvas.toDataURL("image/png");
     link.click();
   });
 });
+
+
+
+let selectedFiles = [];
+
+// File selection
+selectBtn.addEventListener('click', () => {
+    fileInput.click();
+});
+
+fileInput.addEventListener('change', (e) => {
+    handleFiles(e.target.files);
+});
+
+fileInput.addEventListener("change", () => {
+    if (fileInput.files.length > 0) {
+        fileChosen.textContent = fileInput.files[0].name;
+        fileChosen.classList.add("active");
+    } else {
+        fileChosen.textContent = "No file chosen";
+        fileChosen.classList.remove("active");
+    }
+});
+
+// Drag and drop functionality
+uploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+});
+
+uploadArea.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    if (!uploadArea.contains(e.relatedTarget)) {
+        dropZone.classList.remove('drag-over');
+    }
+});
+
+uploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    handleFiles(e.dataTransfer.files);
+});
+
+function handleFiles(files) {
+    if (files.length > 0) {
+        // Create a DataTransfer to assign dropped file to file input
+        const dataTransfer = new DataTransfer();
+        for (let i = 0; i < files.length; i++) {
+            dataTransfer.items.add(files[i]);
+        }
+        fileInput.files = dataTransfer.files; // Now input has the dropped file(s)
+
+        // Update text
+        fileChosen.textContent = files[0].name;
+        fileChosen.classList.add("active");
+    } else {
+        fileChosen.textContent = "No file selected";
+        fileChosen.classList.remove("active");
+    }
+}
